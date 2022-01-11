@@ -24,13 +24,13 @@ const spinner = ora({text: ''});
 
 	// Files.
 	const filesToDownload = [
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/.editorconfig`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/.eslintignore`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/.eslintrc.js`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/.gitignore`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/gulpfile.babel.js`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/package.json`,
-		`https://github.com/OliverWork/WPGulp/master/WPGulp/wpgulp.config.js`
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.editorconfig`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.eslintignore`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.eslintrc.js`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.gitignore`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/gulpfile.babel.js`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/package.json`,
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/wpgulp.config.js`
 	];
 
 	// Dotfiles (if any).
