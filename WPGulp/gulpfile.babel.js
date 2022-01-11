@@ -32,22 +32,22 @@
   * Load gulp plugins and passing them semantic names.
   */
  const gulp = require('gulp'); // Gulp of-course.
- 
+
  // CSS related plugins.
  const sass = require('gulp-dart-sass'); // Gulp plugin for Sass compilation.
  const minifycss = require('gulp-uglifycss'); // Minifies CSS files.
  const autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
  const mmq = require('gulp-merge-media-queries'); // Combine matching media queries into one.
  const rtlcss = require('gulp-rtlcss'); // Generates RTL stylesheet.
- 
+
  // JS related plugins.
  const concat = require('gulp-concat'); // Concatenates JS files.
  const uglify = require('gulp-uglify'); // Minifies JS files.
  const babel = require('gulp-babel'); // Compiles ESNext to browser compatible JS.
- 
+
  // Image related plugins.
  const imagemin = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
- 
+
  // Utility related plugins.
  const rename = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css.
  const lineec = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings).
@@ -62,7 +62,7 @@
  const plumber = require('gulp-plumber'); // Prevent pipe breaking caused by errors from gulp plugins.
  const beep = require('beepbeep');
  const zip = require('gulp-zip'); // Zip plugin or theme file.
- 
+
  /**
   * Custom Error Handler.
   *
@@ -71,10 +71,10 @@
  const errorHandler = r => {
 	 notify.onError('\n\n❌  ===> ERROR: <%= error.message %>\n')(r);
 	 beep();
- 
+
 	 // this.emit('end');
  };
- 
+
  /**
   * Task: `browser-sync`.
   *
@@ -92,13 +92,13 @@
 	 });
 	 done();
  };
- 
+
  // Helper function to allow browser reload with Gulp 4.
  const reload = done => {
 	 browserSync.reload();
 	 done();
  };
- 
+
  /**
   * Task: `styles`.
   *
@@ -126,9 +126,9 @@
 			 })
 		 )
 		 .on('error', sass.logError)
+         .pipe(autoprefixer(config.BROWSERS_LIST))
 		 .pipe(sourcemaps.write({includeContent: false}))
 		 .pipe(sourcemaps.init({loadMaps: true}))
-		 .pipe(autoprefixer(config.BROWSERS_LIST))
 		 .pipe(sourcemaps.write('./'))
 		 .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
 		 .pipe(gulp.dest(config.styleDestination))
@@ -148,7 +148,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Task: `stylesRTL`.
   *
@@ -177,9 +177,9 @@
 			 })
 		 )
 		 .on('error', sass.logError)
+         .pipe(autoprefixer(config.BROWSERS_LIST))
 		 .pipe(sourcemaps.write({includeContent: false}))
 		 .pipe(sourcemaps.init({loadMaps: true}))
-		 .pipe(autoprefixer(config.BROWSERS_LIST))
 		 .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
 		 .pipe(rename({suffix: '-rtl'})) // Append "-rtl" to the filename.
 		 .pipe(rtlcss()) // Convert to RTL.
@@ -201,7 +201,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Task: `vendorsJS`.
   *
@@ -249,7 +249,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Task: `customJS`.
   *
@@ -297,7 +297,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Task: `images`.
   *
@@ -337,7 +337,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Task: `clear-images-cache`.
   *
@@ -347,7 +347,7 @@
  gulp.task('clearCache', function (done) {
 	 return cache.clearAll(done);
  });
- 
+
  /**
   * WP POT Translation File Generator.
   *
@@ -378,7 +378,7 @@
 			 })
 		 );
  });
- 
+
  /**
   * Zips theme or plugin and places in the parent directory
   *
@@ -391,7 +391,7 @@
 	 const src = [...config.zipIncludeGlob, ...config.zipIgnoreGlob];
 	 return gulp.src(src).pipe(zip(config.zipName)).pipe(gulp.dest(config.zipDestination));
  });
- 
+
  /**
   * Watch Tasks.
   *
@@ -407,4 +407,3 @@
 		 gulp.watch(config.imgSRC, gulp.series('images', reload)); // Reload on customJS file changes.
 	 })
  );
- 
