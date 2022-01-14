@@ -48,6 +48,11 @@
  // Image related plugins.
  const imagemin = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
 
+ // FTP related plugins. 
+ const ftp = require('vinyl-ftp');
+ const env = require('dotenv');
+ env.config(); 
+
  // Utility related plugins.
  const rename = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css.
  const lineec = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings).
@@ -391,6 +396,26 @@
 	 const src = [...config.zipIncludeGlob, ...config.zipIgnoreGlob];
 	 return gulp.src(src).pipe(zip(config.zipName)).pipe(gulp.dest(config.zipDestination));
  });
+
+gulp.task('ftp-deploy', () => {
+
+	const localFilesGlob = ['./**/*'].concat(config.excludeOnDepoly);
+	const path = process.env.path; 
+
+	ftp.create({
+		host: process.env.host,
+		port: process.env.port,
+		user: process.env.user,
+		password: process.env.pw,
+		parallel: 5,
+		log: gutil.log,
+	})	
+
+	return gulp
+    	.src(localFilesGlob, { base: '.', buffer: false })
+    	.pipe(conn.newer(path)) // only upload newer files
+    	.pipe(conn.dest(path))
+});
 
  /**
   * Watch Tasks.

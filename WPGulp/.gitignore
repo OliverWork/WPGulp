@@ -4,6 +4,10 @@
 node_modules/
 /node_modules/
 
+# Credentials #
+############
+*.env
+
 # Packages #
 ############
 *.7z
