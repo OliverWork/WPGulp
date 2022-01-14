@@ -42,6 +42,7 @@
 		"start": "gulp",
 		"zip": "gulp zip",
 		"styles": "gulp styles",
+		"deploy": "gulp ftp-deploy",
 		"images": "gulp images",
 		"js-custom": "gulp customJS",
 		"js-vendors": "gulp vendorsJS",
