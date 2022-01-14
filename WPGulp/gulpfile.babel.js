@@ -401,7 +401,29 @@
 gulp.task('ftp-deploy', () => {
 
 	const localFilesGlob = ['./**/*'].concat(config.excludeOnDepoly);
-	const path = process.env.path; 
+	
+	const date = new Date();
+	const month = date.getMonth() + 1; 
+	const day = date.getDate();
+	const hour = date.getHours();
+	const min = date.getMinutes();
+	const s = date.getSeconds();
+	
+	//add 0 to single digit numbers 
+	let formatted = [month, day, hour, min, s].map(str => {
+		return str.toLocaleString('en-US', {
+			minimumIntegerDigits: 2,
+			useGrouping: false
+		})
+	});
+
+	const folder = "" + date.getFullYear() + formatted[0] + formatted[1] + "_" + formatted[2] + ":" + formatted[3] + ":" + formatted[4];
+	
+	let path = process.env.path; 
+	let lastChar = path.slice(-1);
+	path = (lastChar === '/') ? path : path.concat('/'); // add a trailing slash if non exists.
+	path = path.concat(folder);
+
 
 	const conn = ftp.create({
 		host: process.env.host,
