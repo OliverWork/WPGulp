@@ -49,6 +49,7 @@
  const imagemin = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
 
  // FTP related plugins. 
+ const gutil = require('gulp-util');
  const ftp = require('vinyl-ftp');
  const env = require('dotenv');
  env.config(); 
@@ -402,7 +403,7 @@ gulp.task('ftp-deploy', () => {
 	const localFilesGlob = ['./**/*'].concat(config.excludeOnDepoly);
 	const path = process.env.path; 
 
-	ftp.create({
+	const conn = ftp.create({
 		host: process.env.host,
 		port: process.env.port,
 		user: process.env.user,
