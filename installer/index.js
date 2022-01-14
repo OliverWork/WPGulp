@@ -30,7 +30,7 @@ const spinner = ora({text: ''});
 		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.gitignore`,
 		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/gulpfile.babel.js`,
 		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/package.json`,
-		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/wpgulp.config.js`
+		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/wpgulp.config.js`,
 		`https://raw.github.com/OliverWork/WPGulp/master/WPGulp/.env.sample`
 	];
 
